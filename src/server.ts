@@ -31,12 +31,12 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   //! END @TODO1
   app.get( "/filteredimage/", ( req: Request, res: Response ) => {
-    const image_url: string = req.query.image_url as string;
+    let { image_url } = req.query;
     
     if ( !image_url ) {
       return res.status(400).send("image_url is required");
     }    
-    filterImageFromURL(image_url)
+    filterImageFromURL(image_url as string)
       .then(imagePath => {
         return res.status(200).sendFile(imagePath, err => {
           if (!err) {
